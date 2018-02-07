@@ -1,0 +1,19 @@
+---
+- hosts: 10.0.3.14
+  tasks:
+
+  - name: Install nginx package
+    apt: name=nginx update_cache=yes
+
+  - name: Stop nginx. Conflicted with apache2.
+    service: name=nginx state=stopped
+
+  - name: Install apache and mod_php packages
+    apt: name=apache2 update_cache=yes
+
+  - name: Install mod-php
+    apt: name=libapache2-mod-php5 update_cache=yes
+
+  - name: Stop apache2. Conflicted with nginx.
+    service: name=apache2 state=stopped
+
